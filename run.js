@@ -1,2 +1,3 @@
-const { handler } = require("./index.mjs");
-handler();
+import { handler } from "./index.mjs";
+
+console.log(handler());

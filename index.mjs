@@ -9,12 +9,19 @@ import { es } from "date-fns/locale";
 import jsonData from "./data.json" assert { type: "json" };
 import "dotenv/config";
 
+async function getBirthdays() {
+  const req = await fetch(
+    "https://raw.githubusercontent.com/johannmorales/chatbirthdays/master/data.json"
+  );
+  return JSON.parse(await req.text());
+}
+
 export const handler = async (event) => {
   const isDev = process.env.NODE_ENV === "development";
   const today = new Date();
   const currentYear = today.getFullYear();
 
-  const birthdaysRaw = jsonData;
+  const birthdaysRaw = isDev ? jsonData : await getBirthdays();
   const birthdays = [];
   for (const year of [currentYear, currentYear + 1]) {
     for (const raw of birthdaysRaw) {

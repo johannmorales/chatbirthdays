@@ -1,3 +1,7 @@
 import { handler } from "./index.mjs";
 
-console.log(handler());
+async function main() {
+  console.log(await handler());
+}
+
+main();
